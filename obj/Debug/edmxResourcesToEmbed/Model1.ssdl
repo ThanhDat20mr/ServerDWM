@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestChatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="pass" Type="varchar" MaxLength="50" />
+    <Property Name="ip" Type="varchar" MaxLength="50" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Connection">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="unLove" Type="varchar" MaxLength="50" />
+    <Property Name="love" Type="varchar" MaxLength="50" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Chatting">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="userMatch" Type="varchar" MaxLength="50" />
+    <Property Name="ipMatch" Type="varchar" MaxLength="50" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="history" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="NumNews" />
+    </Key>
+    <Property Name="NumNews" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Content" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Time" Type="varchar(max)" />
+    <Property Name="Pic" Type="image" />
+    <Property Name="username" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Profile">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="name" Type="nvarchar(max)" />
+    <Property Name="DoB" Type="datetime" />
+    <Property Name="sexsual" Type="bit" />
+    <Property Name="height" Type="int" />
+    <Property Name="location" Type="nvarchar(max)" />
+    <Property Name="education" Type="nvarchar(max)" />
+    <Property Name="bio" Type="nvarchar(max)" />
+    <Property Name="avt" Type="image" />
+    <Property Name="pic1" Type="image" />
+    <Property Name="pic2" Type="image" />
+    <Property Name="pic3" Type="image" />
+    <Property Name="pic4" Type="image" />
+    <Property Name="pic5" Type="image" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="fav" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Reports">
+    <Key>
+      <PropertyRef Name="NumVote" />
+    </Key>
+    <Property Name="NumVote" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Note" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Time" Type="varchar(max)" />
+    <Property Name="username_rp" Type="varchar(max)" />
+    <Property Name="username" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK__Connectio__usern__00200768">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="Connection" Type="Self.Connection" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="Connection">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Chatting__userna__7D439ABD">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="Chatting" Type="Self.Chatting" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="Chatting">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__News__username__08B54D69">
+    <End Role="Profile" Type="Self.Profile" Multiplicity="0..1" />
+    <End Role="News" Type="Self.News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profile">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Profile__usernam__6A30C649">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="Profile" Type="Self.Profile" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="Profile">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reports__usernam__160F4887">
+    <End Role="Profile" Type="Self.Profile" Multiplicity="0..1" />
+    <End Role="Reports" Type="Self.Reports" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profile">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="Reports">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TestChatModelStoreContainer">
+    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Connection" EntityType="Self.Connection" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Chatting" EntityType="Self.Chatting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reports" EntityType="Self.Reports" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Connectio__usern__00200768" Association="Self.FK__Connectio__usern__00200768">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="Connection" EntitySet="Connection" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Chatting__userna__7D439ABD" Association="Self.FK__Chatting__userna__7D439ABD">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="Chatting" EntitySet="Chatting" />
+    </AssociationSet>
+    <AssociationSet Name="FK__News__username__08B54D69" Association="Self.FK__News__username__08B54D69">
+      <End Role="Profile" EntitySet="Profile" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Profile__usernam__6A30C649" Association="Self.FK__Profile__usernam__6A30C649">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="Profile" EntitySet="Profile" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reports__usernam__160F4887" Association="Self.FK__Reports__usernam__160F4887">
+      <End Role="Profile" EntitySet="Profile" />
+      <End Role="Reports" EntitySet="Reports" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ad7d2a8b61db46c9be0f7798796f0999" Name="Diagram1" ZoomLevel="77">
+        <EntityTypeShape EntityType="TestChatModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="4.5" />
+        <EntityTypeShape EntityType="TestChatModel.Account" Width="1.5" PointX="4.125" PointY="4.125" />
+        <EntityTypeShape EntityType="TestChatModel.Connection" Width="1.5" PointX="2.25" PointY="1.75" />
+        <EntityTypeShape EntityType="TestChatModel.Chatting" Width="1.5" PointX="6.5" PointY="2.125" />
+        <AssociationConnector Association="TestChatModel.FK__Connectio__usern__00200768" />
+        <AssociationConnector Association="TestChatModel.FK__Chatting__userna__7D439ABD" />
+        <EntityTypeShape EntityType="TestChatModel.News" Width="1.5" PointX="8.625" PointY="10.625" />
+        <EntityTypeShape EntityType="TestChatModel.Profile" Width="1.5" PointX="6.375" PointY="8.125" />
+        <EntityTypeShape EntityType="TestChatModel.Reports" Width="1.5" PointX="8.625" PointY="7.75" />
+        <AssociationConnector Association="TestChatModel.FK__Profile__usernam__6A30C649" />
+        <AssociationConnector Association="TestChatModel.FK__News__username__08B54D69" />
+        <AssociationConnector Association="TestChatModel.FK__Reports__usernam__160F4887" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

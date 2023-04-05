@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestChatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TestChatEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="TestChatModel.sysdiagrams" />
+    <EntitySet Name="Account" EntityType="TestChatModel.Account" />
+    <EntitySet Name="Connection" EntityType="TestChatModel.Connection" />
+    <EntitySet Name="Chatting" EntityType="TestChatModel.Chatting" />
+    <AssociationSet Name="FK__Connectio__usern__00200768" Association="TestChatModel.FK__Connectio__usern__00200768">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="Connection" EntitySet="Connection" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Chatting__userna__7D439ABD" Association="TestChatModel.FK__Chatting__userna__7D439ABD">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="Chatting" EntitySet="Chatting" />
+    </AssociationSet>
+    <EntitySet Name="News" EntityType="TestChatModel.News" />
+    <EntitySet Name="Profile" EntityType="TestChatModel.Profile" />
+    <EntitySet Name="Reports" EntityType="TestChatModel.Reports" />
+    <AssociationSet Name="FK__Profile__usernam__6A30C649" Association="TestChatModel.FK__Profile__usernam__6A30C649">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="Profile" EntitySet="Profile" />
+    </AssociationSet>
+    <AssociationSet Name="FK__News__username__08B54D69" Association="TestChatModel.FK__News__username__08B54D69">
+      <End Role="Profile" EntitySet="Profile" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reports__usernam__160F4887" Association="TestChatModel.FK__Reports__usernam__160F4887">
+      <End Role="Profile" EntitySet="Profile" />
+      <End Role="Reports" EntitySet="Reports" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="pass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Connection" Relationship="TestChatModel.FK__Connectio__usern__00200768" FromRole="Account" ToRole="Connection" />
+    <NavigationProperty Name="Chatting" Relationship="TestChatModel.FK__Chatting__userna__7D439ABD" FromRole="Account" ToRole="Chatting" />
+    <NavigationProperty Name="Profile" Relationship="TestChatModel.FK__Profile__usernam__6A30C649" FromRole="Account" ToRole="Profile" />
+  </EntityType>
+  <EntityType Name="Connection">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="unLove" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="love" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Account" Relationship="TestChatModel.FK__Connectio__usern__00200768" FromRole="Connection" ToRole="Account" />
+  </EntityType>
+  <EntityType Name="Chatting">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="userMatch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ipMatch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="history" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Account" Relationship="TestChatModel.FK__Chatting__userna__7D439ABD" FromRole="Chatting" ToRole="Account" />
+  </EntityType>
+  <Association Name="FK__Connectio__usern__00200768">
+    <End Type="TestChatModel.Account" Role="Account" Multiplicity="1" />
+    <End Type="TestChatModel.Connection" Role="Connection" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="Connection">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Chatting__userna__7D439ABD">
+    <End Type="TestChatModel.Account" Role="Account" Multiplicity="1" />
+    <End Type="TestChatModel.Chatting" Role="Chatting" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="Chatting">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="NumNews" />
+    </Key>
+    <Property Name="NumNews" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Content" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Time" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Pic" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Profile" Relationship="TestChatModel.FK__News__username__08B54D69" FromRole="News" ToRole="Profile" />
+  </EntityType>
+  <EntityType Name="Profile">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DoB" Type="DateTime" Precision="3" />
+    <Property Name="sexsual" Type="Boolean" />
+    <Property Name="height" Type="Int32" />
+    <Property Name="location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="education" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="avt" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="pic1" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="pic2" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="pic3" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="pic4" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="pic5" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fav" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Account" Relationship="TestChatModel.FK__Profile__usernam__6A30C649" FromRole="Profile" ToRole="Account" />
+    <NavigationProperty Name="News" Relationship="TestChatModel.FK__News__username__08B54D69" FromRole="Profile" ToRole="News" />
+    <NavigationProperty Name="Reports" Relationship="TestChatModel.FK__Reports__usernam__160F4887" FromRole="Profile" ToRole="Reports" />
+  </EntityType>
+  <EntityType Name="Reports">
+    <Key>
+      <PropertyRef Name="NumVote" />
+    </Key>
+    <Property Name="NumVote" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Note" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Time" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="username_rp" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Profile" Relationship="TestChatModel.FK__Reports__usernam__160F4887" FromRole="Reports" ToRole="Profile" />
+  </EntityType>
+  <Association Name="FK__Profile__usernam__6A30C649">
+    <End Type="TestChatModel.Account" Role="Account" Multiplicity="1" />
+    <End Type="TestChatModel.Profile" Role="Profile" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="Profile">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__News__username__08B54D69">
+    <End Type="TestChatModel.Profile" Role="Profile" Multiplicity="0..1" />
+    <End Type="TestChatModel.News" Role="News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profile">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reports__usernam__160F4887">
+    <End Type="TestChatModel.Profile" Role="Profile" Multiplicity="0..1" />
+    <End Type="TestChatModel.Reports" Role="Reports" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profile">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="Reports">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

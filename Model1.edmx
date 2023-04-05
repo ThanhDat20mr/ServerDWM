@@ -1,0 +1,464 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TestChatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="pass" Type="varchar" MaxLength="50" />
+          <Property Name="ip" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Connection">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="unLove" Type="varchar" MaxLength="50" />
+          <Property Name="love" Type="varchar" MaxLength="50" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Chatting">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="userMatch" Type="varchar" MaxLength="50" />
+          <Property Name="ipMatch" Type="varchar" MaxLength="50" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="history" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="NumNews" />
+          </Key>
+          <Property Name="NumNews" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Time" Type="varchar(max)" />
+          <Property Name="Pic" Type="image" />
+          <Property Name="username" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="name" Type="nvarchar(max)" />
+          <Property Name="DoB" Type="datetime" />
+          <Property Name="sexsual" Type="bit" />
+          <Property Name="height" Type="int" />
+          <Property Name="location" Type="nvarchar(max)" />
+          <Property Name="education" Type="nvarchar(max)" />
+          <Property Name="bio" Type="nvarchar(max)" />
+          <Property Name="avt" Type="image" />
+          <Property Name="pic1" Type="image" />
+          <Property Name="pic2" Type="image" />
+          <Property Name="pic3" Type="image" />
+          <Property Name="pic4" Type="image" />
+          <Property Name="pic5" Type="image" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fav" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Reports">
+          <Key>
+            <PropertyRef Name="NumVote" />
+          </Key>
+          <Property Name="NumVote" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Time" Type="varchar(max)" />
+          <Property Name="username_rp" Type="varchar(max)" />
+          <Property Name="username" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__Connectio__usern__00200768">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Connection" Type="Self.Connection" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="Connection">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Chatting__userna__7D439ABD">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Chatting" Type="Self.Chatting" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="Chatting">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__News__username__08B54D69">
+          <End Role="Profile" Type="Self.Profile" Multiplicity="0..1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Profile__usernam__6A30C649">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Profile" Type="Self.Profile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reports__usernam__160F4887">
+          <End Role="Profile" Type="Self.Profile" Multiplicity="0..1" />
+          <End Role="Reports" Type="Self.Reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="Reports">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestChatModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Connection" EntityType="Self.Connection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chatting" EntityType="Self.Chatting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reports" EntityType="Self.Reports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Connectio__usern__00200768" Association="Self.FK__Connectio__usern__00200768">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Connection" EntitySet="Connection" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Chatting__userna__7D439ABD" Association="Self.FK__Chatting__userna__7D439ABD">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Chatting" EntitySet="Chatting" />
+          </AssociationSet>
+          <AssociationSet Name="FK__News__username__08B54D69" Association="Self.FK__News__username__08B54D69">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Profile__usernam__6A30C649" Association="Self.FK__Profile__usernam__6A30C649">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Profile" EntitySet="Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reports__usernam__160F4887" Association="Self.FK__Reports__usernam__160F4887">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="Reports" EntitySet="Reports" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestChatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TestChatEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="TestChatModel.sysdiagrams" />
+          <EntitySet Name="Account" EntityType="TestChatModel.Account" />
+          <EntitySet Name="Connection" EntityType="TestChatModel.Connection" />
+          <EntitySet Name="Chatting" EntityType="TestChatModel.Chatting" />
+          <AssociationSet Name="FK__Connectio__usern__00200768" Association="TestChatModel.FK__Connectio__usern__00200768">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Connection" EntitySet="Connection" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Chatting__userna__7D439ABD" Association="TestChatModel.FK__Chatting__userna__7D439ABD">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Chatting" EntitySet="Chatting" />
+          </AssociationSet>
+          <EntitySet Name="News" EntityType="TestChatModel.News" />
+          <EntitySet Name="Profile" EntityType="TestChatModel.Profile" />
+          <EntitySet Name="Reports" EntityType="TestChatModel.Reports" />
+          <AssociationSet Name="FK__Profile__usernam__6A30C649" Association="TestChatModel.FK__Profile__usernam__6A30C649">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Profile" EntitySet="Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__News__username__08B54D69" Association="TestChatModel.FK__News__username__08B54D69">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reports__usernam__160F4887" Association="TestChatModel.FK__Reports__usernam__160F4887">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="Reports" EntitySet="Reports" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Connection" Relationship="TestChatModel.FK__Connectio__usern__00200768" FromRole="Account" ToRole="Connection" />
+          <NavigationProperty Name="Chatting" Relationship="TestChatModel.FK__Chatting__userna__7D439ABD" FromRole="Account" ToRole="Chatting" />
+          <NavigationProperty Name="Profile" Relationship="TestChatModel.FK__Profile__usernam__6A30C649" FromRole="Account" ToRole="Profile" />
+        </EntityType>
+        <EntityType Name="Connection">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="unLove" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="love" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Account" Relationship="TestChatModel.FK__Connectio__usern__00200768" FromRole="Connection" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="Chatting">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="userMatch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ipMatch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="history" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Account" Relationship="TestChatModel.FK__Chatting__userna__7D439ABD" FromRole="Chatting" ToRole="Account" />
+        </EntityType>
+        <Association Name="FK__Connectio__usern__00200768">
+          <End Type="TestChatModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="TestChatModel.Connection" Role="Connection" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="Connection">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Chatting__userna__7D439ABD">
+          <End Type="TestChatModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="TestChatModel.Chatting" Role="Chatting" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="Chatting">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="NumNews" />
+          </Key>
+          <Property Name="NumNews" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Pic" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Profile" Relationship="TestChatModel.FK__News__username__08B54D69" FromRole="News" ToRole="Profile" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DoB" Type="DateTime" Precision="3" />
+          <Property Name="sexsual" Type="Boolean" />
+          <Property Name="height" Type="Int32" />
+          <Property Name="location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="education" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="avt" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="pic1" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="pic2" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="pic3" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="pic4" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="pic5" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fav" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="TestChatModel.FK__Profile__usernam__6A30C649" FromRole="Profile" ToRole="Account" />
+          <NavigationProperty Name="News" Relationship="TestChatModel.FK__News__username__08B54D69" FromRole="Profile" ToRole="News" />
+          <NavigationProperty Name="Reports" Relationship="TestChatModel.FK__Reports__usernam__160F4887" FromRole="Profile" ToRole="Reports" />
+        </EntityType>
+        <EntityType Name="Reports">
+          <Key>
+            <PropertyRef Name="NumVote" />
+          </Key>
+          <Property Name="NumVote" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Note" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="username_rp" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Profile" Relationship="TestChatModel.FK__Reports__usernam__160F4887" FromRole="Reports" ToRole="Profile" />
+        </EntityType>
+        <Association Name="FK__Profile__usernam__6A30C649">
+          <End Type="TestChatModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="TestChatModel.Profile" Role="Profile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__News__username__08B54D69">
+          <End Type="TestChatModel.Profile" Role="Profile" Multiplicity="0..1" />
+          <End Type="TestChatModel.News" Role="News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reports__usernam__160F4887">
+          <End Type="TestChatModel.Profile" Role="Profile" Multiplicity="0..1" />
+          <End Type="TestChatModel.Reports" Role="Reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="Reports">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TestChatModelStoreContainer" CdmEntityContainer="TestChatEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TestChatModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Account">
+            <EntityTypeMapping TypeName="TestChatModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="ip" ColumnName="ip" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="username" ColumnName="username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Connection">
+            <EntityTypeMapping TypeName="TestChatModel.Connection">
+              <MappingFragment StoreEntitySet="Connection">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="love" ColumnName="love" />
+                <ScalarProperty Name="unLove" ColumnName="unLove" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chatting">
+            <EntityTypeMapping TypeName="TestChatModel.Chatting">
+              <MappingFragment StoreEntitySet="Chatting">
+                <ScalarProperty Name="history" ColumnName="history" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="ipMatch" ColumnName="ipMatch" />
+                <ScalarProperty Name="userMatch" ColumnName="userMatch" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="TestChatModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="Pic" ColumnName="Pic" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="NumNews" ColumnName="NumNews" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profile">
+            <EntityTypeMapping TypeName="TestChatModel.Profile">
+              <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="fav" ColumnName="fav" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="pic5" ColumnName="pic5" />
+                <ScalarProperty Name="pic4" ColumnName="pic4" />
+                <ScalarProperty Name="pic3" ColumnName="pic3" />
+                <ScalarProperty Name="pic2" ColumnName="pic2" />
+                <ScalarProperty Name="pic1" ColumnName="pic1" />
+                <ScalarProperty Name="avt" ColumnName="avt" />
+                <ScalarProperty Name="bio" ColumnName="bio" />
+                <ScalarProperty Name="education" ColumnName="education" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="sexsual" ColumnName="sexsual" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reports">
+            <EntityTypeMapping TypeName="TestChatModel.Reports">
+              <MappingFragment StoreEntitySet="Reports">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="username_rp" ColumnName="username_rp" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="NumVote" ColumnName="NumVote" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
